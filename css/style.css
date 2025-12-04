@@ -44,3 +44,11 @@ header nav ul li a {
     display: block;
     margin: auto;
 }
+
+.titre {
+    display: block;
+    position: absolute;
+    width: 400px;
+    left: 30px;
+    color: yellow;
+}
