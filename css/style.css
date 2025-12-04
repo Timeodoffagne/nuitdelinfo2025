@@ -28,3 +28,11 @@ header nav ul {
     align-items: center;
     list-style-type: none;
 }
+
+header nav ul li a {
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    color: inherit; 
+    font-family: poppins;
+}
