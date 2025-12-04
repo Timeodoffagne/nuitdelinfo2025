@@ -1,0 +1,13 @@
+body {
+    background-color : #121B29;
+    width: 100%;
+    margin: auto;
+    color: white;
+}
+
+header {
+    background-color: #EEEBFF;
+    color: #121B29;
+    padding: -20px;
+}
+
