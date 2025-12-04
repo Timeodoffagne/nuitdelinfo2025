@@ -45,10 +45,26 @@ header nav ul li a {
     margin: auto;
 }
 
-.titre {
+.titre, .partiegauche, .partiedroite {
     display: block;
     position: absolute;
     width: 400px;
-    left: 30px;
-    color: yellow;
+}
+
+.titre, .partiegauche {
+    left: 240px;
+    top: 20%;
+}
+
+.partiegauche {
+    top: 26%;
+    font-size: 18px;
+}
+
+.partiedroite {
+    display: block;
+    position: absolute;
+    right: 240px;
+    top: 22%;
+    font-size: 18px;
 }
