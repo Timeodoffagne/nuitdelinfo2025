@@ -1,22 +1,116 @@
 <!DOCTYPE html>
 <html lang="fr">
-<link rel="stylesheet" href="css/style.css">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Champ de texte</title>
+<meta charset="UTF-8">
+<title>Champ de texte</title>
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+  body {
+    background-color: #121b29;
+    color: white;
+    font-family: sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #adresse {
+    width: 200px;
+    background-color: #121b29;
+    border: 2px solid red;
+    padding: 5px;
+    font-size: 18px;
+    position: absolute;
+    transition: top 0.4s ease, left 0.4s ease;
+    color: white;
+  }
+
+  .btn-accueil {
+    position: absolute;
+    color: #aa8c50;
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    top: 10px;
+    left: 10px;
+}
+
+  .letter {
+    display: inline-block;
+    animation: tremble 0.1s infinite;
+  }
+
+  @keyframes tremble {
+    0% { transform: translate(0,0); }
+    25% { transform: translate(1px,-1px); }
+    50% { transform: translate(-1px,1px); }
+    75% { transform: translate(1px,1px); }
+    100% { transform: translate(0,0); }
+  }
+</style>
 </head>
-<header>
-    <nav class="main-nav">
-        <a href="index.html"><img src="image/logonird.png" alt="logo nird" class="logo-nird"></a>
-        <ul class="menu">
-            <li><a href="rse.html" class="nav-item" role="button" tabindex="0" aria-pressed="false">RSE</a></li>
-            <li><a href="hergonomie.html" class="nav-item" role="button" tabindex="0" aria-pressed="false">Ergonomie</a></li>
-            <li><a href="decathlon.html" class="nav-item" role="button" tabindex="0" aria-pressed="false">Decathlon</a></li>
-            <li><a href="gros_pixel.html" class="nav-item" role="button" tabindex="0" aria-pressed="false">Gros pixel</a></li>
-        </ul>
-    </nav>
-</header>
 <body>
-    <input type="text" id="champTexte" name="champTexte" placeholder="Entrez votre adresse ici">
+    <a href="index.html" class="btn-accueil">&lt; Accueil</a>
+
+<div id="adresse" contenteditable="true" spellcheck="false"></div>
+
+<script>
+  const input = document.getElementById("adresse");
+
+  // Position initiale
+  input.style.top = "40vh";
+  input.style.left = "40vw";
+
+  // Couleur qui change toutes les 0.5s
+  setInterval(() => {
+    input.style.color = `hsl(${Math.random()*360}, 80%, 50%)`;
+    input.style.borderColor = `hsl(${Math.random()*360}, 80%, 50%)`;
+  }, 500);
+
+  // Déplacement aléatoire avec distance minimale
+  let hoverCount = 0;
+  let lastTop = 0, lastLeft = 0;
+  input.addEventListener("mouseenter", () => {
+    if (hoverCount < 10) {
+      const maxTop = window.innerHeight - 100;
+      const maxLeft = window.innerWidth - 220;
+      let newTop, newLeft;
+      do {
+        newTop = Math.random() * maxTop;
+        newLeft = Math.random() * maxLeft;
+      } while (Math.abs(newTop - lastTop) < 100 && Math.abs(newLeft - lastLeft) < 100);
+      input.style.top = newTop + "px";
+      input.style.left = newLeft + "px";
+      lastTop = newTop;
+      lastLeft = newLeft;
+      hoverCount++;
+    }
+  });
+
+  // Lettres tremblantes avec transformations aléatoires
+  input.addEventListener("input", () => {
+    const text = input.textContent;
+    input.innerHTML = "";
+    for (let char of text) {
+      const span = document.createElement("span");
+      span.textContent = char;
+      span.classList.add("letter");
+
+      // Transformations aléatoires
+      const fonts = ["serif", "sans-serif", "monospace", "cursive", "fantasy"];
+      span.style.fontFamily = fonts[Math.floor(Math.random()*fonts.length)];
+      span.style.fontWeight = Math.random() > 0.5 ? "bold" : "normal";
+      span.style.fontStyle = Math.random() > 0.5 ? "italic" : "normal";
+      span.style.fontSize = (16 + Math.random()*12) + "px";
+      span.style.color = `hsl(${Math.random()*360}, 80%, 50%)`;
+
+      input.appendChild(span);
+    }
+  });
+</script>
+
 </body>
+</html>
