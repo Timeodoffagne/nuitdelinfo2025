@@ -152,4 +152,48 @@ header nav ul li a {
     top : 1600px;
     margin : auto;
     left : 500px;
-    }
+}
+
+
+/* Formulaire simulation */
+form {
+    margin: 50px auto;
+    width: 400px;
+}
+
+form div {
+    margin-bottom: 15px;
+}
+
+form div label {
+    color: #AA8C50;
+    font-weight: bold;
+}
+
+/* Appliquer le style seulement aux champs texte, nombre, etc. */
+form div input[type="text"],
+form div input[type="number"],
+form div input[type="range"],
+form div select {
+    width: 100%;
+    height: 34px;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 3px solid #AA8C50;
+    border-radius: 17px;
+}
+
+/* Style spécifique pour les radios */
+form div input[type="radio"] {
+    width: auto;       /* taille normale */
+    height: auto;      /* taille normale */
+    margin-right: 8px; /* petit espace avant le texte */
+}
+
+/* Alignement horizontal des radios + texte */
+.periode label {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 15px; /* espace entre les options */
+    color: white;       /* garde ton style de texte */
+}

@@ -13,6 +13,7 @@
             <li><a href="rse.html" class="nav-item" role="button" tabindex="0" aria-pressed="false">RSE</a></li>
             <li><a href="hergonomie.html" class="nav-item" role="button" tabindex="0" aria-pressed="false">Ergonomie</a></li>
             <li><a href="decathlon.html" class="nav-item" role="button" tabindex="0" aria-pressed="false">Decathlon</a></li>
+            <li><a href="gros_pixel.html" class="nav-item" role="button" tabindex="0" aria-pressed="false">Gros pixel</a></li>
         </ul>
     </nav>
 </header>
@@ -29,11 +30,6 @@
             <label for="durabilite">Durabilité moyenne des PC (années)</label><br>
             <input type="number" id="durabilite" name="durabilite" min="0" required>
         </div>
-
-        <div class="l1">
-            <label for="durabilite">Durabilité moyenne après reconditionnement (années)</label><br>
-            <input type="number" id="durabilite1" name="durabilite1" min="0" required>
-        </div>
         
         <div class="r">
             <label for="tauxRecond">Taux de PC à reconditionner (%)</label><br>
@@ -43,6 +39,15 @@
         <div class="t">
             <label for="horizon">Horizon de calcul (années)</label><br>
             <input type="number" id="horizon" name="horizon" min="1" required>
+        </div>
+
+        <div class="u">
+            <label for="typeUsage">Type régulier d'usage de l'ordinateur</label><br>
+            <select id="profilUsage" name="profilUsage" required>
+                <option value="college">Peu de ressources (web, code léger, Excel, éditeur de texte, ...)</option>
+                <option value="lycee">Ressources modérées (montage léger, design, simulation légère, ...)</option>
+                <option value="universite">Ressources élevées (3D, calculs puissants, ...)</option>
+            </select>
         </div>
         
         <div class="H">
@@ -84,7 +89,7 @@
             
         <div class="prixwin">
             <label for="prixwindows">Prix d'une licence Windows (€) (prix de base : 219.99€)</label><br>
-            <input type="number" id="prixwindows" name="prixwindows" min="0" default="219.99" required>
+            <input type="number" id="prixwindows" name="prixwindows" min="0" default="219.99">
         </div>
 
         <div class="kg">
