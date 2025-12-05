@@ -4,86 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Questionnaire - Récapitulatif</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const summaryDataEl = document.getElementById('summary-data');
-            const dataString = sessionStorage.getItem('formData');
-            
-            if (!dataString) {
-                summaryDataEl.innerHTML = '<p class="text-red-500">Aucune donnée trouvée. Veuillez recommencer le questionnaire.</p>';
-                return;
-            }
-
-            try {
-                const formData = JSON.parse(dataString);
-                let summaryHTML = '';
-
-                // Labels de traduction
-                const labels = {
-                    pseudo: "Pseudo", sexe: "Sexe", age_range: "Tranche d'Âge",
-                    taille_haut: "Taille Vêtement Haut", taille_bas: "Taille Vêtement Bas", 
-                    pointure_chaussure: "Pointure Chaussures", frequence_sport: "Fréquence Sportive",
-                    maladies: "Problèmes de Santé (Sélection)", type_travail: "Type de Travail",
-                    poste_travail: "Poste de Travail"
-                };
-
-                for (const key in formData) {
-                    if (formData.hasOwnProperty(key)) {
-                        const label = labels[key] || key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' ');
-                        let value = formData[key];
-                        
-                        // Formattage spécial pour les maladies (qui est une chaîne CSV/point-virgule)
-                        if (key === 'maladies') {
-                            value = value.split('; ').join(', ');
-                        }
-
-                        summaryHTML += `<p class="mt-1"><strong class="font-medium text-gray-700">${label}:</strong> ${value || 'Non renseigné'}</p>`;
-                    }
-                }
-                
-                summaryDataEl.innerHTML = summaryHTML;
-
-            } catch (e) {
-                summaryDataEl.innerHTML = `<p class="text-red-500">Erreur lors de l'affichage des données.</p><p class="text-xs text-gray-500">${e.message}</p>`;
-            }
-        });
-
-        // Fonction pour effacer les données et recommencer
-        function resetForm() {
-             sessionStorage.removeItem('formData');
-             window.location.href = 'pseudo.html';
-        }
-    </script>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
-    <div id="questionnaire-container" class="bg-white shadow-2xl rounded-xl w-full max-w-xl overflow-hidden flex flex-col min-h-[550px]">
-        
-        <header class="p-6 bg-blue-600 text-white shadow-lg">
-            <h1 class="text-2xl font-bold">Conseil Sport & Santé Decathlon</h1>
-            <p class="text-sm opacity-90 mt-1">Récapitulatif de vos réponses</p>
+<body>
+    <header>
+        <nav>
+            <a href="index.html"><img src="image/logonird.png" alt="logo nird" class="logo-nird"></a>
+            <ul class="nav-bar">
+                <li><a href="rse.html">rse</a></li>
+                <li><a href="hergonomie.html">hergonomie simple</a></li>
+                <li><a href="decathlon.html">decathlon</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div id="questionnaire-container">
+        <header>
+            <h1>Conseil Sport & Santé Decathlon</h1>
+            <p class="text-sm opacity-90 mt-1">Étape Finale : Votre Profil</p>
         </header>
-        
-        <main class="flex-grow p-8 flex flex-col justify-between">
-            <div>
-                <h2 class="text-xl font-semibold mb-6 text-gray-800">Résultats et Conseils Personnalisés</h2>
-                <p class="mb-4 text-gray-600">Voici le récapitulatif de vos réponses. Des conseils personnalisés Decathlon pourraient être générés ici.</p>
+        <main>
+            <form id="current-form">
+                <input type="hidden" id="prev-data-placeholder" name="prev_data">
+                <h2 style="color: var(--color-accent);">Votre Profil de Bien-être</h2>
+                <p>Vos réponses ont été analysées. Voici toutes les données collectées :</p>
 
-                <div id="summary-data" class="border border-gray-200 p-4 rounded-lg bg-gray-50 text-left text-sm mb-6">
-                    <p>Chargement des données...</p>
+                <div id="recap-data-container" class="mt-4 p-4 border rounded-lg" style="background-color: #f7f7f7;">
+                    Chargement des données...
                 </div>
-            </div>
 
-            <footer class="mt-8 pt-4 border-t border-gray-200 flex justify-between items-center">
-                <button type="button" onclick="window.location.href='poste-travail.html'" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg transition duration-200">
-                    &larr; Modifier l'étape précédente
-                </button>
-                <button type="button" onclick="resetForm()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
-                    Recommencer le Questionnaire
-                </button>
-            </footer>
-            
+                <footer>
+                    <button type="button" onclick="window.location.href='charges-lourdes.html'" class="btn-secondary">&larr; Modifier l'étape</button>
+                    <button type="button" onclick="handleNextStep('recommandations-produits.html')" class="btn-primary">
+                        Voir les Articles Recommandés &rarr;
+                    </button>
+                </footer>
+            </form>
         </main>
     </div>
+    <script src="app.js"></script>
 </body>
 </html>
