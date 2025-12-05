@@ -1,16 +1,6 @@
-// ==========================================================
-// FICHIER: app.js
-// Logique Centralisée pour le Questionnaire SPA (Single Page Application)
-// INCLUT L'EASTER EGG, LE ROUTAGE ET LA GESTION DE LA TOUCHE ENTER
-// ==========================================================
-
 const form = document.getElementById('questionnaire-form');
 const stepIndicator = document.getElementById('step-indicator');
 const totalSteps = 9; 
-
-// ==========================================================
-// 1. FONCTIONS DE NAVIGATION ET VALIDATION
-// ==========================================================
 
 function updateStepIndicator(currentStep, stepTitle) {
     if (currentStep <= totalSteps) {
@@ -34,25 +24,19 @@ function goToStep(currentId, nextId, nextTitle) {
     }
 }
 
-/**
- * Valide l'étape 1 et vérifie le pseudo pour l'Easter Egg.
- */
 function validatePseudoAndNavigate() {
     const currentId = 1;
     const pseudoInput = document.querySelector('#step-1 input[name="pseudo"]');
     
-    // 1. Validation de la longueur du pseudo (obligatoire car l'input a 'required')
     if (!pseudoInput || !pseudoInput.checkValidity()) {
         pseudoInput.reportValidity();
         return;
     }
-    
-    // 2. Vérification de l'Easter Egg
+
     const pseudo = pseudoInput.value.toLowerCase().trim();
     const forbiddenPseudos = ['intersport', 'nike', 'adidas'];
 
     if (forbiddenPseudos.includes(pseudo)) {
-        // Collecte la seule donnée 'pseudo' avant de naviguer hors du SPA
         const formData = new FormData(form);
         let storedData = {};
         for (const [key, value] of formData.entries()) {
@@ -60,12 +44,10 @@ function validatePseudoAndNavigate() {
         }
         localStorage.setItem('finalFormData', JSON.stringify(storedData));
         
-        // Redirection vers le profil "Rebut de la Société"
         window.location.href = 'recommandations-rebut.html';
         return; 
     }
 
-    // 3. Navigation normale (vers l'étape 2)
     goToStep(1, 2, 'Votre Sexe');
 }
 
@@ -114,7 +96,6 @@ function handleConditionalNavigation() {
     let nextId;
     let nextTitle;
 
-    // LOGIQUE DE SAUT : (Étudiant, Retraite, Chômage/Inactif sautent les étapes 8 et 9)
     if (selectedValue === 'Retraite' || selectedValue === 'Chômage/Inactif' || selectedValue === 'Étudiant') {
         nextId = 10; 
         nextTitle = 'Votre Profil de Bien-être';
@@ -126,10 +107,6 @@ function handleConditionalNavigation() {
     goToStep(currentId, nextId, nextTitle);
 }
 
-
-// ==========================================================
-// 2. ROUTAGE ET COLLECTE DES DONNÉES
-// ==========================================================
 
 function displayRecapData() {
     const recapContainer = document.getElementById('recap-data-container');
@@ -144,7 +121,6 @@ function displayRecapData() {
     
     localStorage.setItem('finalFormData', JSON.stringify(storedData));
     
-    // TEMPORAIRE : AFFICHE LES DONNÉES BRUTES
     let html = '<h3>Données collectées (pour vérification) :</h3>';
     html += '<ul style="list-style-type: disc; padding-left: 20px;">';
     for (const key in storedData) {
@@ -164,7 +140,6 @@ function getProfile(data) {
     const posture = data.poste_posture;
     const envTravail = data.environnement_travail;
 
-    // Aides pour la lecture des conditions
     const isUnder35 = (age === '18-25' || age === '26-35');
     const is35 = (age === '36-50'); 
     const isSport4Plus = (sportFreq === 'Plus de 4 fois');
@@ -194,7 +169,7 @@ function getProfile(data) {
     }
 
     // 4. Profil "Bolosse"
-    if (isSport1To4 && isNoWork) {
+    if ((isSportLess1 || isSport1To4) && isNoWork) {
         return 'Bolosse';
     }
     
@@ -233,10 +208,6 @@ function goToNextPage() {
 }
 
 
-// ==========================================================
-// 3. GESTION DES ÉVÉNEMENTS CLAVIER (TOUCHE ENTRÉE)
-// ==========================================================
-
 function handleKeyPress(event) {
     if (event.key === 'Enter' || event.keyCode === 13) {
         event.preventDefault(); 
@@ -251,10 +222,6 @@ function handleKeyPress(event) {
         }
     }
 }
-
-// ==========================================================
-// 4. INITIALISATION
-// ==========================================================
 
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Initialisation de l'affichage (étape 1)
@@ -278,9 +245,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// ==========================================================
-// 5. EXPOSITION DES FONCTIONS AU CONTEXTE GLOBAL
-// ==========================================================
 window.goToStep = goToStep;
 window.validateAndNavigate = validateAndNavigate;
 window.handleHealthSubmission = handleHealthSubmission;
