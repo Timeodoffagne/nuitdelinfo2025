@@ -1,18 +1,17 @@
 // ==========================================================
 // FICHIER: app.js
 // Logique Centralisée pour le Questionnaire SPA (Single Page Application)
-// Gère la navigation entre les étapes et la collecte finale des données.
+// INCLUT L'EASTER EGG, LE ROUTAGE ET LA GESTION DE LA TOUCHE ENTER
 // ==========================================================
 
 const form = document.getElementById('questionnaire-form');
 const stepIndicator = document.getElementById('step-indicator');
-const totalSteps = 9; // Nombre total d'étapes avant le récapitulatif
+const totalSteps = 9; 
 
-/**
- * Met à jour l'indicateur d'étape dans l'en-tête.
- * @param {number} currentStep Le numéro de l'étape affichée.
- * @param {string} stepTitle Le titre de l'étape.
- */
+// ==========================================================
+// 1. FONCTIONS DE NAVIGATION ET VALIDATION
+// ==========================================================
+
 function updateStepIndicator(currentStep, stepTitle) {
     if (currentStep <= totalSteps) {
         stepIndicator.textContent = `Étape ${currentStep} sur ${totalSteps} : ${stepTitle}`;
@@ -21,9 +20,6 @@ function updateStepIndicator(currentStep, stepTitle) {
     }
 }
 
-/**
- * Affiche l'étape suivante et cache l'étape actuelle.
- */
 function goToStep(currentId, nextId, nextTitle) {
     const currentStep = document.getElementById(`step-${currentId}`);
     const nextStep = document.getElementById(`step-${nextId}`);
@@ -33,162 +29,262 @@ function goToStep(currentId, nextId, nextTitle) {
 
     updateStepIndicator(nextId, nextTitle);
     
-    // Si on atteint le récapitulatif (step-10)
     if (nextId === 10) {
         displayRecapData();
     }
 }
 
 /**
- * Valide l'étape actuelle et passe à la suivante si la validation est OK.
+ * Valide l'étape 1 et vérifie le pseudo pour l'Easter Egg.
  */
+function validatePseudoAndNavigate() {
+    const currentId = 1;
+    const pseudoInput = document.querySelector('#step-1 input[name="pseudo"]');
+    
+    // 1. Validation de la longueur du pseudo (obligatoire car l'input a 'required')
+    if (!pseudoInput || !pseudoInput.checkValidity()) {
+        pseudoInput.reportValidity();
+        return;
+    }
+    
+    // 2. Vérification de l'Easter Egg
+    const pseudo = pseudoInput.value.toLowerCase().trim();
+    const forbiddenPseudos = ['intersport', 'nike', 'adidas'];
+
+    if (forbiddenPseudos.includes(pseudo)) {
+        // Collecte la seule donnée 'pseudo' avant de naviguer hors du SPA
+        const formData = new FormData(form);
+        let storedData = {};
+        for (const [key, value] of formData.entries()) {
+            storedData[key] = value;
+        }
+        localStorage.setItem('finalFormData', JSON.stringify(storedData));
+        
+        // Redirection vers le profil "Rebut de la Société"
+        window.location.href = 'recommandations-rebut.html';
+        return; 
+    }
+
+    // 3. Navigation normale (vers l'étape 2)
+    goToStep(1, 2, 'Votre Sexe');
+}
+
 function validateAndNavigate(currentId, nextId, nextTitle) {
     const currentStepElement = document.getElementById(`step-${currentId}`);
     const inputs = currentStepElement.querySelectorAll('input[required], select[required]');
-    
     let isValid = true;
     
     inputs.forEach(input => {
-        // Vérification simple des champs requis (texte, nombre, select)
-        if (input.type !== 'radio' && input.value.trim() === '') {
-            isValid = false;
-            input.reportValidity();
-        }
+        if (input.type !== 'radio' && input.value.trim() === '') { isValid = false; input.reportValidity(); }
     });
 
-    // Vérification spécifique pour les groupes de radios requis
     currentStepElement.querySelectorAll('input[type="radio"]').forEach(radio => {
         if (radio.required) {
             const groupName = radio.name;
             if (!currentStepElement.querySelector(`input[name="${groupName}"]:checked`)) {
                 isValid = false;
-                // Tente de déclencher la validation native sur le premier élément du groupe
-                if (radio === currentStepElement.querySelector(`input[name="${groupName}"]`)) {
-                    radio.reportValidity();
-                }
+                if (radio === currentStepElement.querySelector(`input[name="${groupName}"]`)) { radio.reportValidity(); }
             }
         }
     });
 
-    if (isValid) {
-        goToStep(currentId, nextId, nextTitle);
-    }
+    if (isValid) { goToStep(currentId, nextId, nextTitle); }
 }
 
-/**
- * Gère la soumission spécifique de l'Étape 6 (Problèmes de Santé) et prépare la donnée.
- */
 function handleHealthSubmission() {
     const checkboxes = document.querySelectorAll('#step-6 input[name="sante_choix"]:checked');
     let selectedProblems = [];
-
     checkboxes.forEach(cb => { selectedProblems.push(cb.value); });
 
-    // Agrégation des choix dans le champ caché maladies_choisies
     const maladiesChoisieInput = document.getElementById('maladies-choisies');
     maladiesChoisieInput.value = selectedProblems.join('; ');
     
-    // Pas de validation requise pour les checkboxes, on passe directement à l'étape 7
     goToStep(6, 7, 'Environnement de travail');
 }
 
 
-/**
- * Gère la navigation conditionnelle pour l'Étape 7 (Environnement de Travail).
- */
 function handleConditionalNavigation() {
     const currentId = 7;
     const currentStepElement = document.getElementById(`step-${currentId}`);
-    
     const radioChecked = currentStepElement.querySelector('input[name="environnement_travail"]:checked');
     
-    // 1. Validation radio
-    if (!radioChecked) {
-        currentStepElement.querySelector('input[name="environnement_travail"]').reportValidity();
-        return;
-    }
+    if (!radioChecked) { currentStepElement.querySelector('input[name="environnement_travail"]').reportValidity(); return; }
 
     const selectedValue = radioChecked.value;
     let nextId;
     let nextTitle;
 
-    // LOGIQUE DE SAUT : si Retraite ou Chômage/Inactif ou Étudiant, on saute les étapes 8 et 9
+    // LOGIQUE DE SAUT : (Étudiant, Retraite, Chômage/Inactif sautent les étapes 8 et 9)
     if (selectedValue === 'Retraite' || selectedValue === 'Chômage/Inactif' || selectedValue === 'Étudiant') {
-        nextId = 10; // Saut direct au récapitulatif
+        nextId = 10; 
         nextTitle = 'Votre Profil de Bien-être';
     } else {
-        nextId = 8; // Continuer vers l'étape 8
+        nextId = 8; 
         nextTitle = 'Posture de Travail';
     }
     
     goToStep(currentId, nextId, nextTitle);
 }
 
-/**
- * Collecte TOUTES les données du formulaire et les affiche.
- */
+
+// ==========================================================
+// 2. ROUTAGE ET COLLECTE DES DONNÉES
+// ==========================================================
+
 function displayRecapData() {
     const recapContainer = document.getElementById('recap-data-container');
     const formData = new FormData(form);
-    
     if (!recapContainer) return;
 
     let storedData = {};
-    
-    // 1. Collecte des données du formulaire (tous les champs visibles et cachés)
     for (const [key, value] of formData.entries()) {
-        if (key === 'sante_choix') continue; // Ignorer le name brut des checkboxes
-        
-        // Stocke la valeur
+        if (key === 'sante_choix') continue; 
         storedData[key] = value;
     }
     
-    // 2. Affichage
-    let html = '<h3>Réponses collectées :</h3>';
-    html += '<ul style="list-style-type: disc; padding-left: 20px;">';
+    localStorage.setItem('finalFormData', JSON.stringify(storedData));
     
-    if (Object.keys(storedData).length === 0) {
-        html = '<p>Aucune donnée de questionnaire trouvée.</p>';
-    } else {
-        for (const key in storedData) {
-            if (storedData.hasOwnProperty(key) && key !== 'prev_data') {
-                html += `<li style="margin-bottom: 5px;"><strong>${key.toUpperCase().replace(/_/g, ' ')}:</strong> ${storedData[key]}</li>`;
-            }
+    // TEMPORAIRE : AFFICHE LES DONNÉES BRUTES
+    let html = '<h3>Données collectées (pour vérification) :</h3>';
+    html += '<ul style="list-style-type: disc; padding-left: 20px;">';
+    for (const key in storedData) {
+        if (storedData.hasOwnProperty(key) && key !== 'prev_data') {
+            html += `<li style="margin-bottom: 5px;"><strong>${key.toUpperCase().replace(/_/g, ' ')}:</strong> ${storedData[key]}</li>`;
         }
     }
     html += '</ul>';
     
-    recapContainer.innerHTML = html;
+    recapContainer.innerHTML = html; 
+}
+
+function getProfile(data) {
+    const age = data.age_range;
+    const sportFreq = data.frequence_sport;
+    const sante = data.maladies_choisies ? data.maladies_choisies.split(';').length : 0;
+    const posture = data.poste_posture;
+    const envTravail = data.environnement_travail;
+
+    // Aides pour la lecture des conditions
+    const isUnder35 = (age === '18-25' || age === '26-35');
+    const is35 = (age === '36-50'); 
+    const isSport4Plus = (sportFreq === 'Plus de 4 fois');
+    const isSportLess1 = (sportFreq === 'Moins de 1 fois');
+    const isSport1To4 = (sportFreq === '1 à 4 fois');
+    const isLowHealthIssue = (sante <= 1);
+    const isWorkAssis = (posture === 'Assis');
+    const isWorkDebout = (posture === 'Debout');
+    const isNoWork = (envTravail === 'Étudiant' || envTravail === 'Retraite' || envTravail === 'Chômage/Inactif');
+
+
+    // --- Profils basés sur les conditions strictes (ordre important) ---
+
+    // 1. Profil "Sportif"
+    if (isUnder35 && isSport4Plus && isLowHealthIssue && (isWorkAssis || isWorkDebout)) {
+        return 'Sportif';
+    }
+
+    // 2. Profil "Crise de la quarantaine"
+    if (is35 && isSport4Plus) { 
+        return 'CriseDeLaQuarantaine';
+    }
+
+    // 3. Profil "Flemmard"
+    if (isUnder35 && isSportLess1 && isLowHealthIssue && isWorkAssis) {
+        return 'Flemmard';
+    }
+
+    // 4. Profil "Bolosse"
+    if (isSport1To4 && isNoWork) {
+        return 'Bolosse';
+    }
     
-    // Sauvegarde de l'objet final dans le localStorage (pour la page de recommandations inter-page)
-    localStorage.setItem('finalFormData', JSON.stringify(storedData));
-}
-
-/**
- * Pour aller à la page finale de recommandations (inter-page).
- */
-function goToNextPage(url) {
-    // Le localStorage a déjà été mis à jour par displayRecapData()
-    window.location.href = url;
+    // 5. Profil "Mid" (Reste des personnes, utilisé comme par défaut)
+    return 'Mid';
 }
 
 
-// Initialisation
+function goToNextPage() {
+    const storedDataJSON = localStorage.getItem('finalFormData');
+    const storedData = storedDataJSON ? JSON.parse(storedDataJSON) : {};
+    
+    const profile = getProfile(storedData); 
+
+    let destinationUrl = '';
+
+    switch (profile) {
+        case 'Flemmard':
+            destinationUrl = 'recommandations-flemmard.html';
+            break;
+        case 'Sportif':
+            destinationUrl = 'recommandations-sportif.html';
+            break;
+        case 'Bolosse':
+            destinationUrl = 'recommandations-bolosse.html';
+            break;
+        case 'CriseDeLaQuarantaine':
+            destinationUrl = 'recommandations-crise-quarantaine.html';
+            break;
+        case 'Mid':
+        default: 
+            destinationUrl = 'recommandations-mid.html';
+    }
+    
+    window.location.href = destinationUrl;
+}
+
+
+// ==========================================================
+// 3. GESTION DES ÉVÉNEMENTS CLAVIER (TOUCHE ENTRÉE)
+// ==========================================================
+
+function handleKeyPress(event) {
+    if (event.key === 'Enter' || event.keyCode === 13) {
+        event.preventDefault(); 
+        
+        const activeStepElement = document.querySelector('.form-step.active');
+        if (!activeStepElement) return;
+
+        const nextButton = activeStepElement.querySelector('.btn-primary');
+        
+        if (nextButton) {
+            nextButton.click();
+        }
+    }
+}
+
+// ==========================================================
+// 4. INITIALISATION
+// ==========================================================
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialisation de l'affichage
+    // 1. Initialisation de l'affichage (étape 1)
     const allSteps = document.querySelectorAll('.form-step');
     allSteps.forEach(step => step.classList.remove('active'));
-    document.getElementById('step-1').classList.add('active');
-    updateStepIndicator(1, 'Votre identifiant');
     
-    // Nettoie le localStorage au démarrage pour un nouveau questionnaire propre
+    // Déclenche la fonction de validation spécifique pour l'étape 1 via le bouton
+    const startStep = document.getElementById('step-1');
+    if(startStep) {
+        startStep.classList.add('active');
+        updateStepIndicator(1, 'Votre identifiant');
+    }
+    
+    // 2. Nettoie le localStorage
     localStorage.removeItem('finalFormData'); 
+    
+    // 3. ATTACHE L'ÉCOUTEUR DE TOUCHE AU FORMULAIRE
+    const currentForm = document.getElementById('questionnaire-form');
+    if (currentForm) {
+        currentForm.addEventListener('keypress', handleKeyPress);
+    }
 });
 
-// Exposer les fonctions au contexte global (nécessaire pour les appels onclick dans le HTML)
+// ==========================================================
+// 5. EXPOSITION DES FONCTIONS AU CONTEXTE GLOBAL
+// ==========================================================
 window.goToStep = goToStep;
 window.validateAndNavigate = validateAndNavigate;
 window.handleHealthSubmission = handleHealthSubmission;
 window.handleConditionalNavigation = handleConditionalNavigation;
 window.goToNextPage = goToNextPage;
 window.displayRecapData = displayRecapData;
+window.validatePseudoAndNavigate = validatePseudoAndNavigate; // NOUVELLE FONCTION EXPOSÉE
