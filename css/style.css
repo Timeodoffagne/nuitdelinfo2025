@@ -36,7 +36,7 @@ header nav ul li a {
     text-decoration: none;
     color: inherit; 
 }
-/* style nav-item
+style nav-item
 .nav-item {
     display: inline-block;
     padding: 8px 12px;
@@ -74,7 +74,7 @@ header nav ul li a {
     transform: none !important;
     box-shadow: 0 6px 0 rgba(0,0,0,0.35) !important;
     }
-} */
+}
 
 /* FIN HEADER -----------------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -135,4 +135,12 @@ header nav ul li a {
     top: 1100px;
     right: 240px;
     max-width: 500px;
+}
+
+.e3partie p {
+    position: absolute;
+    width: 900px;
+    font-size: 18px;
+    left: 240px;
+    top: 1600px;
 }
