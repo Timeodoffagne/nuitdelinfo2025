@@ -13,7 +13,7 @@ header {
 }
 
 header .logo-nird {
-    height: 60px;
+    height: 70px;
     margin-right: 15px;
 }
 
@@ -40,31 +40,33 @@ header nav ul li a {
 
 /* FIN HEADER -----------------------------------------------------------------------------------------------------------------------------------------------*/
 
-.pc {
-    display: block;
-    margin: auto;
-}
-
 .titre, .partiegauche, .partiedroite {
     display: block;
     position: absolute;
     width: 400px;
 }
 
-.titre, .partiegauche {
+/* Titre et texte gauche */
+.titre {
     left: 240px;
     top: 20%;
 }
 
 .partiegauche {
+    left: 240px;
     top: 26%;
     font-size: 18px;
 }
 
+/* Texte droite */
 .partiedroite {
-    display: block;
-    position: absolute;
     right: 240px;
     top: 22%;
     font-size: 18px;
+}
+
+/* Image centrale */
+.pc {
+    display: block;
+    margin: auto;
 }
