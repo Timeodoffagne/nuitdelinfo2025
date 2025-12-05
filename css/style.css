@@ -146,9 +146,10 @@ header nav ul li a {
 /* troisième partie _______________________________________________*/
 
 
-.e3partie {
+.e3partie p {
     position: absolute;
     width : 900px;
     top : 1600px;
-    right : 500 px;
+    margin : auto;
+    left : 500px;
     }
