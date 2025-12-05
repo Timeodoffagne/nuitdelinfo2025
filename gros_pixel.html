@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ma Page Rétro 8-Bit</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css\gros_pixel.css">
+</head>
+<body>
+    <div class="main-layout">
+        
+        <div class="left-side">
+            <div class="header-logo">
+                <h2>NUMÉRIQUE INCLUSIF RESPONSABLE DURABLE</h2>
+            </div>
+            <ul class="nav-list">
+                <li><a href="#">RSE</a></li>
+                <li><a href="#">Ergonomie</a></li>
+                <li><a href="#">Decathlon</a></li>
+                <li><a href="#">Gros pixel</a></li>
+            </ul>
+        </div>
+
+        <div class="container" id="retro-container">
+            <div id="home-screen">
+                <header>
+                    <h1>👾 BIENVENUE SUR MON SITE RÉTRO 👾</h1>
+                </header>
+                <section class="content">
+                    <p>CECI EST UN PARAGRAPHE DE TEXTE TYPIQUE DES ANNÉES 80/90.</p>
+                    <p>CLIQUEZ SUR LE BOUTON CI-DESSOUS POUR COMMENCER LE JEU ÉDUCATIF !</p>
+                    <a href="#" class="button" onclick="startByteCollector()">START GAME</a>
+                </section>
+                <footer>
+                    <p>-- (C) 2025 RETRO-DEV --</p>
+                </footer>
+            </div>
+
+            <div id="game-screen" style="display: none;">
+                <div id="game-info">
+                    SCORE: <span id="score-display">0</span> | VIES: <span id="lives-display">3</span>
+                </div>
+                <div id="game-area">
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <script src="js/game.js"></script>
+</body>
+</html>
