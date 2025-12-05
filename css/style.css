@@ -147,11 +147,12 @@ header nav ul li a {
 
 
 .e3partie p {
+    font-size: 18px;
     position: absolute;
     width : 900px;
     top : 1600px;
     margin : auto;
-    left : 500px;
+    left : 240px;
 }
 
 
