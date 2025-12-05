@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<link rel="stylesheet" href="css/style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulation de transition</title>
+</head>
+<header>
+    <nav class="main-nav">
+        <a href="index.html"><img src="image/logonird.png" alt="logo nird" class="logo-nird"></a>
+        <ul class="menu">
+            <li><a href="rse.html" class="nav-item" role="button" tabindex="0" aria-pressed="false">RSE</a></li>
+            <li><a href="hergonomie.html" class="nav-item" role="button" tabindex="0" aria-pressed="false">Ergonomie</a></li>
+            <li><a href="decathlon.html" class="nav-item" role="button" tabindex="0" aria-pressed="false">Decathlon</a></li>
+        </ul>
+    </nav>
+</header>
+<body>
+    <!-- <h1 class="titre">Simulation de transition NIRD</h1> -->
+
+    <form action="simulation_result.html" method="post" class="simulation-form">
+        <div class="n">
+            <label for="numPc">Nombre de PC dans l'établissement</label><br>
+            <input type="number" id="numPc" name="numPc" min="0" required>
+        </div>
+        
+        <div class="l0">
+            <label for="durabilite">Durabilité moyenne des PC (années)</label><br>
+            <input type="number" id="durabilite" name="durabilite" min="0" required>
+        </div>
+
+        <div class="l1">
+            <label for="durabilite">Durabilité moyenne après reconditionnement (années)</label><br>
+            <input type="number" id="durabilite1" name="durabilite1" min="0" required>
+        </div>
+        
+        <div class="r">
+            <label for="tauxRecond">Taux de PC à reconditionner (%)</label><br>
+            <input type="number" id="tauxRecond" name="tauxRecond" min="0" max="100" required>
+        </div>
+        
+        <div class="t">
+            <label for="horizon">Horizon de calcul (années)</label><br>
+            <input type="number" id="horizon" name="horizon" min="1" required>
+        </div>
+        
+        <div class="H">
+            <label for="nbHeures">Nombre d'heures d'utilisation moyenne par pc</label><br>
+            <input type="number" id="heuresUsage" name="heuresUsage" min="0" required>
+            <div class="periode">
+                <label>
+                    <input type="radio" name="periode" value="mois" checked>
+                    Par mois
+                </label>
+                <label>
+                    <input type="radio" name="periode" value="an">
+                    Par an
+                </label>
+            </div>
+        </div>
+        
+        <div class="prix">
+            <label for="prixNeuf">Prix moyen d'un PC neuf (€)</label><br>
+        
+            <input type="range" id="prixNeuf" name="prixNeuf" 
+                min="0" max="9" step="1" value="0" list="prixTicks">
+                
+            <datalist id="prixTicks">
+                <option value="0" label="-200€"></option>
+                <option value="1" label="200-400€"></option>
+                <option value="2" label="400-600€"></option>
+                <option value="3" label="600-800€"></option>
+                <option value="4" label="800-1000€"></option>
+                <option value="5" label="1000-1250€"></option>
+                <option value="6" label="1250-1500€"></option>
+                <option value="7" label="1500-1750€"></option>
+                <option value="8" label="1750-2000€"></option>
+                <option value="9" label="+2000€"></option>
+            </datalist>
+                
+            <p id="prixOutput">Tranche sélectionnée : -200€</p>
+        </div>
+            
+        <div class="prixwin">
+            <label for="prixwindows">Prix d'une licence Windows (€) (prix de base : 219.99€)</label><br>
+            <input type="number" id="prixwindows" name="prixwindows" min="0" default="219.99" required>
+        </div>
+
+        <div class="kg">
+            <label for="poidpc">Poid moyen d'un ordinateur</label><br>
+            <input type="number" id="poidpc" name="poidpc" min="0" required>
+        </div>
+            
+        <div class="submit">
+            <button type="submit">Lancer la simulation</button>
+        </div>
+    </form>
+
+</body>
+</html>
+
+
+<script src="js/scriptsimu.js"></script>

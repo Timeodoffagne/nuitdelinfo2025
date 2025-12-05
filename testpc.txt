@@ -1,0 +1,32 @@
+n : nombre de pc
+r : taux de pc reconditionnés
+L₀: durée de vie actuelle moyenne d’un PC (années)
+L₁: durée de vie après démarche NIRD (années)
+T: horizon de calcul (années)
+E\_new: émissions de CO₂ pour fabriquer un PC neuf
+E\_recond: émissions de CO₂ liées au reconditionnement d’un PC
+W\_unit: masse moyenne d’un PC mis au rebut (kg)
+P\_new: prix d’achat d’un PC neuf (€)
+P\_recond: coût moyen de reconditionnement par PC (€)
+C\_win: coût de licence et services associés par PC (€) : 219.99
+C\_linux: coût d’adoption Linux par PC (€) — souvent proche de 0, mais prévoir support/formation
+p\_b: part des usages “bureautique” (entre 0 et 1)
+p\_mm: part des usages “multimédia/haut besoin” (entre 0 et 1, p_b+p_mm=1p\_b+p\_mm=1)
+ΔP\_energy: différence de puissance moyenne consommée entre parc neuf et parc reconditionné (W)
+H: heures d’utilisation par an (h/an)
+EF\_elec: facteur d’émission de l’électricité locale (kg CO₂/kWh)
+
+
+
+
+Nombre d'ordinateurs
+Durée de vie
+Objectif durée de vie
+Temps de simulation de l'impact
+
+Écologie :
+%age de pc à reconditionner
+nb d'heure d'utilisation par mois/an
+
+Économique :
+tranche de prix d'un pc moyen dans l'établissement
