@@ -142,10 +142,13 @@ header nav ul li a {
     max-width: 500px;
 }
 
-.e3partie p {
+
+/* troisième partie _______________________________________________*/
+
+
+.e3partie {
     position: absolute;
-    width: 900px;
-    font-size: 18px;
-    left: 240px;
-    top: 1600px;
-}
+    width : 900px;
+    top : 1600px;
+    right : 500 px;
+    }
