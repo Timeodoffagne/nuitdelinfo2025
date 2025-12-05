@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionnaire Complet - Decathlon SPA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        .form-step { display: none; }
+        .form-step.active { display: block; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="../index.html"><img src="image/logonird.png" alt="logo nird" class="logo-nird"></a>
+            <ul class="nav-bar">
+                <li><a href="rse.html">rse</a></li>
+                <li><a href="hergonomie.html">hergonomie simple</a></li>
+                <li><a href="decathlon.html">decathlon</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div id="questionnaire-container">
+        <header>
+            <h1>Conseil Sport & Santé Decathlon</h1>
+            <p id="step-indicator" class="text-sm opacity-90 mt-1">Étape 1 sur 9 : Votre identifiant</p>
+        </header>
+        <main>
+            <form id="questionnaire-form">
+
+                <input type="hidden" id="prev-data-placeholder" name="prev_data">
+
+                <div id="step-1" class="form-step active">
+                    <h2 style="color: var(--color-accent);">Étape 1 : Votre identifiant</h2>
+                    <p class="mb-4">Veuillez entrer votre pseudonyme (3 à 50 caractères).</p>
+                    <input type="text" name="pseudo" placeholder="Pseudo" required minlength="3" maxlength="50">
+                    <footer>
+                        <div></div>
+                        <button type="button" onclick="validatePseudoAndNavigate()" class="btn-primary">
+                            Suivant &rarr;
+                        </button>
+                    </footer>
+                </div>
+
+                <div id="step-2" class="form-step">
+                    <h2 style="color: var(--color-accent);">Étape 2 : Votre Sexe</h2>
+                    <p class="mb-4">Quel est votre sexe ?</p>
+                    <div class="space-y-3">
+                        <label class="choice-card block"><input type="radio" name="sexe" value="Femme" required><div class="p-4 border rounded-lg">Femme</div></label>
+                        <label class="choice-card block"><input type="radio" name="sexe" value="Homme" required><div class="p-4 border rounded-lg">Homme</div></label>
+                    </div>
+                    <footer>
+                        <button type="button" onclick="goToStep(2, 1, 'Votre identifiant')" class="btn-secondary">&larr; Précédent</button>
+                        <button type="button" onclick="validateAndNavigate(2, 3, 'Tranche d\'âge')" class="btn-primary">Suivant &rarr;</button>
+                    </footer>
+                </div>
+
+                <div id="step-3" class="form-step">
+                    <h2 style="color: var(--color-accent);">Étape 3 : Tranche d'âge</h2>
+                    <p class="mb-4">Quel est votre tranche d'âge ?</p>
+                    <div class="space-y-3">
+                        <label class="choice-card block"><input type="radio" name="age_range" value="18-25" required><div class="p-4 border rounded-lg">18 - 25 ans</div></label>
+                        <label class="choice-card block"><input type="radio" name="age_range" value="26-35" required><div class="p-4 border rounded-lg">26 - 35 ans</div></label>
+                        <label class="choice-card block"><input type="radio" name="age_range" value="36-50" required><div class="p-4 border rounded-lg">36 - 50 ans</div></label>
+                        <label class="choice-card block"><input type="radio" name="age_range" value="50+" required><div class="p-4 border rounded-lg">50 ans et plus</div></label>
+                    </div>
+                    <footer>
+                        <button type="button" onclick="goToStep(3, 2, 'Votre Sexe')" class="btn-secondary">&larr; Précédent</button>
+                        <button type="button" onclick="validateAndNavigate(3, 4, 'Mensurations')" class="btn-primary">Suivant &rarr;</button>
+                    </footer>
+                </div>
+
+                <div id="step-4" class="form-step">
+                    <h2 style="color: var(--color-accent);">Étape 4 : Mensurations</h2>
+                    <p class="mb-4">Pour des conseils précis sur l'équipement, indiquez vos tailles habituelles :</p>
+                    <div class="space-y-4">
+                        <div>
+                            <label for="input-taille-haut">Taille Vêtements Haut</label>
+                            <select id="input-taille-haut" name="taille_haut" required>
+                                <option value="">-- Sélectionnez une taille --</option>
+                                <option value="XS">XS</option>
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="input-taille-bas">Taille Vêtements Bas (ex: 38, 40, 42, 44)</label>
+                            <select id="input-taille-bas" name="taille_bas" required>
+                                <option value="">-- Sélectionnez une taille --</option>
+                                <option value="36">36 (XS)</option>
+                                <option value="38">38 (S)</option>
+                                <option value="40">40 (M)</option>
+                                <option value="42">42 (L)</option>
+                                <option value="44">44 (XL)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="input-pointure">Pointure Chaussures</label>
+                            <input type="number" id="input-pointure" name="pointure_chaussure" placeholder="Pointure (ex: 42)" min="20" max="50" required>
+                        </div>
+                    </div>
+                    <footer>
+                        <button type="button" onclick="goToStep(4, 3, 'Tranche d\'âge')" class="btn-secondary">&larr; Précédent</button>
+                        <button type="button" onclick="validateAndNavigate(4, 5, 'Fréquence Sportive')" class="btn-primary">Suivant &rarr;</button>
+                    </footer>
+                </div>
+
+                <div id="step-5" class="form-step">
+                    <h2 style="color: var(--color-accent);">Étape 5 : Fréquence Sportive</h2>
+                    <p class="mb-4">À quelle fréquence pratiquez-vous une activité sportive par semaine ?</p>
+                    <div class="space-y-3">
+                        <label class="choice-card block"><input type="radio" name="frequence_sport" value="Moins de 1 fois" required><div class="p-4 border rounded-lg">Moins de 1 fois / semaine</div></label>
+                        <label class="choice-card block"><input type="radio" name="frequence_sport" value="1 à 4 fois" required><div class="p-4 border rounded-lg">1 à 4 fois / semaine</div></label>
+                        <label class="choice-card block"><input type="radio" name="frequence_sport" value="Plus de 4 fois" required><div class="p-4 border rounded-lg">Plus de 4 fois / semaine</div></label>
+                    </div>
+                    <footer>
+                        <button type="button" onclick="goToStep(5, 4, 'Mensurations')" class="btn-secondary">&larr; Précédent</button>
+                        <button type="button" onclick="validateAndNavigate(5, 6, 'Problèmes de Santé')" class="btn-primary">Suivant &rarr;</button>
+                    </footer>
+                </div>
+                
+                <div id="step-6" class="form-step">
+                    <input type="hidden" id="maladies-choisies" name="maladies_choisies">
+
+                    <h2 style="color: var(--color-accent);">Étape 6 : Problèmes de Santé</h2>
+                    <p class="mb-4">Avez-vous des préoccupations de santé spécifiques ? Cochez toutes les options pertinentes.</p>
+                    <div class="space-y-3">
+                        <label class="choice-card block"><input type="checkbox" name="sante_choix" value="Problèmes de sommeil" id="check-sommeil"><div class="p-4 border rounded-lg">Problèmes de sommeil</div></label>
+                        <label class="choice-card block"><input type="checkbox" name="sante_choix" value="Problèmes d'articulation" id="check-articulation"><div class="p-4 border rounded-lg">Problèmes d'articulation</div></label>
+                        <label class="choice-card block"><input type="checkbox" name="sante_choix" value="Problèmes de stress/anxiété" id="check-stress"><div class="p-4 border rounded-lg">Problèmes de stress/anxiété</div></label>
+                        <label class="choice-card block"><input type="checkbox" name="sante_choix" value="Aucun/Autre" id="check-autre"><div class="p-4 border rounded-lg">Aucun des problèmes mentionnés</div></label>
+                    </div>
+                    <footer>
+                        <button type="button" onclick="goToStep(6, 5, 'Fréquence Sportive')" class="btn-secondary">&larr; Précédent</button>
+                        <button type="button" onclick="handleHealthSubmission()" class="btn-primary">Suivant &rarr;</button>
+                    </footer>
+                </div>
+
+                <div id="step-7" class="form-step">
+                    <h2 style="color: var(--color-accent);">Étape 7 : Votre situation professionnelle</h2>
+                    <p class="mb-4">Quel est votre environnement de travail principal ?</p>
+                    <div class="space-y-3">
+                        <label class="choice-card block"><input type="radio" name="environnement_travail" value="Bureau" required><div class="p-4 border rounded-lg">Travail de bureau</div></label>
+                        <label class="choice-card block"><input type="radio" name="environnement_travail" value="Physique" required><div class="p-4 border rounded-lg">Travail physique / Manuel</div></label>
+                        <label class="choice-card block"><input type="radio" name="environnement_travail" value="Étudiant" required><div class="p-4 border rounded-lg">Étudiant / Retraite / Inactif</div></label>
+                    </div>
+                    <footer>
+                        <button type="button" onclick="goToStep(7, 6, 'Problèmes de Santé')" class="btn-secondary">&larr; Précédent</button>
+                        <button type="button" onclick="handleConditionalNavigation()" class="btn-primary">Suivant &rarr;</button>
+                    </footer>
+                </div>
+                
+                <div id="step-8" class="form-step">
+                    <h2 style="color: var(--color-accent);">Étape 8 : Posture de Travail</h2>
+                    <p class="mb-4">Précisez la posture que vous adoptez majoritairement durant votre journée de travail :</p>
+                    <div class="space-y-3">
+                        <label class="choice-card block"><input type="radio" name="poste_posture" value="Assis" required><div class="p-4 border rounded-lg">Majoritairement Assis</div></label>
+                        <label class="choice-card block"><input type="radio" name="poste_posture" value="Debout" required><div class="p-4 border rounded-lg">Majoritairement Debout ou en mouvement</div></label>
+                    </div>
+                    <footer>
+                        <button type="button" onclick="goToStep(8, 7, 'Environnement de travail')" class="btn-secondary">&larr; Précédent</button>
+                        <button type="button" onclick="validateAndNavigate(8, 9, 'Charges Lourdes')" class="btn-primary">Suivant &rarr;</button>
+                    </footer>
+                </div>
+
+                <div id="step-9" class="form-step">
+                    <h2 style="color: var(--color-accent);">Étape 9 : Manipulation de Charges</h2>
+                    <p class="mb-4">Devez-vous porter ou manipuler régulièrement des charges lourdes ?</p>
+                    <div class="space-y-3">
+                        <label class="choice-card block"><input type="radio" name="poste_charges_lourdes" value="Oui" required><div class="p-4 border rounded-lg">Oui, régulièrement</div></label>
+                        <label class="choice-card block"><input type="radio" name="poste_charges_lourdes" value="Non" required><div class="p-4 border rounded-lg">Non, jamais ou très rarement</div></label>
+                    </div>
+                    <footer>
+                        <button type="button" onclick="goToStep(9, 8, 'Posture de Travail')" class="btn-secondary">&larr; Précédent</button>
+                        <button type="button" onclick="validateAndNavigate(9, 10, 'Votre Profil de Bien-être')" class="btn-primary">
+                            Voir mon Profil &rarr;
+                        </button>
+                    </footer>
+                </div>
+
+                <div id="step-10" class="form-step">
+                    <h2 style="color: var(--color-accent);">Votre Profil de Bien-être</h2>
+                    <p>Vos réponses ont été analysées. Découvrez le type de sportif ou d'utilisateur qui vous correspond :</p>
+
+                    <div id="recap-data-container" class="mt-4 p-4 border rounded-lg">
+                        Calcul en cours...
+                    </div>
+
+                    <footer>
+                        <button type="button" onclick="goToStep(10, 9, 'Charges Lourdes')" class="btn-secondary">
+                            &larr; Modifier l'étape
+                        </button>
+                        <button type="button" onclick="goToNextPage('recommandations-produits.html')" class="btn-primary">
+                            Voir les Articles Recommandés &rarr;
+                        </button>
+                    </footer>
+                </div>
+
+            </form>
+        </main>
+    </div>
+    <script>
+        function handleNextStep(nextUrl) {
+            const form = document.getElementById('current-form');
+            if (!form.checkValidity()) { form.reportValidity(); return; }
+
+            // 1. Récupération et standardisation du pseudo
+            const pseudoInput = document.getElementById('input-pseudo');
+            const pseudo = pseudoInput.value.toLowerCase().trim();
+
+            // 2. Vérification de l'Easter Egg
+            const forbiddenPseudos = ['intersport', 'nike', 'adidas'];
+            let nextPage = nextUrl;
+
+            if (forbiddenPseudos.includes(pseudo)) {
+                // Redirection vers le profil "Rebut de la Société"
+                nextPage = 'recommandations-rebut.html';
+                // Stocker le pseudo avant de naviguer, même si c'est pour l'Easter Egg
+                window.saveCurrentFormData(form);
+            } else {
+                // Flux normal : on sauvegarde et on continue
+                window.saveCurrentFormData(form);
+            }
+            
+            // 3. Redirection
+            window.location.href = nextPage;
+        }
+    </script>
+    <script src="app.js"></script>
+</body>
+</html>
