@@ -36,7 +36,7 @@ header nav ul li a {
     text-decoration: none;
     color: inherit; 
 }
-/* style nav-item */
+/* style nav-item
 .nav-item {
     display: inline-block;
     padding: 8px 12px;
@@ -51,25 +51,21 @@ header nav ul li a {
     background-image: linear-gradient(rgba(255,255,255,0.02), rgba(0,0,0,0.04));
 }
 
-/* Effet natif tactile / :active */
 .nav-item:active {
     transform: translateY(6px);
     box-shadow: 0 2px 0 rgba(0,0,0,0.35), inset 0 6px 12px rgba(0,0,0,0.30);
 }
 
-/* Classe appliquée par JS pour animation contrôlée */
 .nav-item.sunk {
     transform: translateY(6px);
     box-shadow: 0 2px 0 rgba(0,0,0,0.35), inset 0 6px 12px rgba(0,0,0,0.30);
 }
 
-/* Focus clavier visible */
 .nav-item:focus {
     outline: 3px solid rgba(255, 212, 64, 0.25);
     outline-offset: 3px;
 }
 
-/* Respecter prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
     .nav-item,
     .nav-item:active,
@@ -78,7 +74,7 @@ header nav ul li a {
     transform: none !important;
     box-shadow: 0 6px 0 rgba(0,0,0,0.35) !important;
     }
-}
+} */
 
 /* FIN HEADER -----------------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -91,19 +87,19 @@ header nav ul li a {
 /* Titre et texte gauche */
 .titre {
     left: 240px;
-    top: 20%;
+    top: 190px;
 }
 
 .partiegauche {
     left: 240px;
-    top: 26%;
+    top: 240px;
     font-size: 18px;
 }
 
 /* Texte droite */
 .partiedroite {
     right: 240px;
-    top: 22%;
+    top: 200px;
     font-size: 18px;
 }
 
@@ -116,8 +112,27 @@ header nav ul li a {
 /* .pc {
     display: block;
     margin: auto;
-    position: sticky;   /* reste accroché pendant le scroll */
-    top: 100px;         /* distance depuis le haut */
-    z-index: -1;        /* passe sous le texte */
-    max-width: 500px;   /* taille de l’image */
+    position: sticky;
+    top: 100px;
+    z-index: -1;
+    max-width: 500px;
 } */
+
+/* 2e partie ----------------------------------------*/
+
+.e2partie p {
+    position: absolute;
+    width: 900px;
+    font-size: 18px;
+    left: 240px;
+    top: 1100px;
+}
+
+.e2partie .pc {
+    display: block;
+    margin: auto;
+    position: absolute;
+    top: 1100px;
+    right: 240px;
+    max-width: 500px;
+}
