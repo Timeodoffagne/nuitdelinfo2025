@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommandations - Profil Bolosse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html"><img src="image/logonird.png" alt="logo nird" class="logo-nird"></a>
+            <ul class="nav-bar">
+                <li><a href="rse.html">rse</a></li>
+                <li><a href="hergonomie.html">hergonomie simple</a></li>
+                <li><a href="decathlon.html">decathlon</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div id="questionnaire-container">
+        <header>
+            <h1>Conseil Sport & Santé Decathlon</h1>
+            <p>Profil et Catalogue Personnalisé</p>
+        </header>
+        <main>
+            <h2 style="color: var(--color-accent);">🧐 Votre Profil : BOLOSSE (Le Bien-être Essentiel)</h2>
+            <p>Ce profil couvre un large éventail d'âges qui cherchent à maintenir une activité modérée, souvent sans contraintes professionnelles. L'accent est mis sur la mobilité et la détente.</p>
+
+            <h3>Nos suggestions pour votre Profil "Bolosse"</h3>
+            <div id="main-recommendations" class="recommendation-list">
+                <div class="recommendation-item">
+                    <h4>Rouleau de Massage Tendre (Foam Roller)</h4>
+                    <p>Indispensable pour soulager les tensions musculaires après une activité modérée.</p>
+                    <a href="https://www.decathlon.fr/p/rouleau-de-massage-tendre-foam-roller-bleu/_/R-p-328766?mc=8858864&c=vert" target="_blank">Voir l'article chez Decathlon</a>
+                </div>
+
+                <div class="recommendation-item">
+                    <h4>Banc de Yoga et Méditation Pliable</h4>
+                    <p>Pour améliorer la posture et le confort lors de la méditation ou des étirements.</p>
+                    <a href="https://www.decathlon.fr/p/banc-de-yoga-et-meditation-pliable-bois-de-hetre/_/R-p-307714?mc=8552062" target="_blank">Voir l'article chez Decathlon</a>
+                </div>
+            </div>
+
+            <hr style="margin: 30px 0; border-color: var(--color-border);" />
+
+            <div id="conditional-recommendations">
+                <h3>Articles Complémentaires Personnalisés (Posture & Santé)</h3>
+                <p>Analyse en cours des besoins spécifiques (santé, charges lourdes)...</p>
+            </div>
+            
+            <footer>
+                <button type="button" onclick="localStorage.removeItem('finalFormData'); window.location.href='questionnaire.html';" class="btn-primary">
+                    Terminer et Recommencer
+                </button>
+            </footer>
+        </main>
+    </div>
+    
+    <script src="conditional-recommendation.js"></script>
+</body>
+</html>
