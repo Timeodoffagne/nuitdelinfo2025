@@ -112,3 +112,12 @@ header nav ul li a {
     display: block;
     margin: auto;
 }
+
+/* .pc {
+    display: block;
+    margin: auto;
+    position: sticky;   /* reste accroché pendant le scroll */
+    top: 100px;         /* distance depuis le haut */
+    z-index: -1;        /* passe sous le texte */
+    max-width: 500px;   /* taille de l’image */
+} */
