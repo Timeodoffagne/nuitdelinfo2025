@@ -170,7 +170,6 @@ form div label {
     font-weight: bold;
 }
 
-/* Appliquer le style seulement aux champs texte, nombre, etc. */
 form div input[type="text"],
 form div input[type="number"],
 form div input[type="range"],
@@ -183,17 +182,22 @@ form div select {
     border-radius: 17px;
 }
 
-/* Style spécifique pour les radios */
 form div input[type="radio"] {
-    width: auto;       /* taille normale */
-    height: auto;      /* taille normale */
-    margin-right: 8px; /* petit espace avant le texte */
+    width: auto;
+    height: auto;
+    margin-right: 8px;
 }
 
-/* Alignement horizontal des radios + texte */
 .periode label {
     display: inline-flex;
     align-items: center;
-    margin-right: 15px; /* espace entre les options */
-    color: white;       /* garde ton style de texte */
+    margin-right: 15px;
+    color: white;
+}
+
+footer {
+  text-align: center;
+  padding: 16px;
+  background-color: #1e2a3a;
+  margin-top: 32px;
 }
