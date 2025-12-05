@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionnaire - Tranche d'Âge</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div id="questionnaire-container" class="bg-white shadow-2xl rounded-xl w-full max-w-xl overflow-hidden flex flex-col min-h-[550px]">
+        
+        <header class="p-6 bg-blue-600 text-white shadow-lg">
+            <h1 class="text-2xl font-bold">Conseil Sport & Santé Decathlon</h1>
+            <p class="text-sm opacity-90 mt-1">Étape 3 sur 8 : Tranche d'âge</p>
+        </header>
+        
+        <main class="flex-grow p-8 flex flex-col justify-between">
+            
+            <form action="tailles.html" method="GET" class="flex-grow flex flex-col justify-between">
+                <div>
+                    <input type="hidden" id="prev-data-placeholder" name="prev_data">
+
+                    <h2 class="text-xl font-semibold mb-6 text-gray-800">Étape 3 : Tranche d'âge</h2>
+                    <p class="mb-4 text-gray-600">Quel est votre tranche d'âge ?</p>
+                    <div class="space-y-3">
+                        <label class="choice-card block"><input type="radio" name="age_range" value="18-25" required><div class="p-4 border border-gray-300 rounded-lg">18 - 25 ans</div></label>
+                        <label class="choice-card block"><input type="radio" name="age_range" value="26-35" required><div class="p-4 border border-gray-300 rounded-lg">26 - 35 ans</div></label>
+                        <label class="choice-card block"><input type="radio" name="age_range" value="36-50" required><div class="p-4 border border-gray-300 rounded-lg">36 - 50 ans</div></label>
+                        <label class="choice-card block"><input type="radio" name="age_range" value="50+" required><div class="p-4 border border-gray-300 rounded-lg">50 ans et plus</div></label>
+                    </div>
+                </div>
+
+                <footer class="mt-8 pt-4 border-t border-gray-200 flex justify-between items-center">
+                    <button type="button" onclick="window.location.href='sexe.html'" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg transition duration-200">
+                        &larr; Précédent
+                    </button>
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200">
+                        Suivant &rarr;
+                    </button>
+                </footer>
+            </form>
+            
+        </main>
+    </div>
+    <script src="transfer-data.js"></script>
+</body>
+</html>
