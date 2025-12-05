@@ -7,11 +7,18 @@ const labels = [
   "1500-1750€", "1750-2000€", "+2000€"
 ];
 
-slider.addEventListener("input", function() {
-  output.textContent = "Tranche sélectionnée : " + labels[this.value];
-});
+// Fonction pour mettre à jour le texte du slider
+function updateSliderLabel() {
+  output.textContent = "Tranche sélectionnée : " + labels[slider.value];
+}
 
+// Mise à jour quand on bouge le slider
+slider.addEventListener("input", updateSliderLabel);
+
+// Mise à jour au chargement de la page
 document.addEventListener("DOMContentLoaded", () => {
+    updateSliderLabel(); // affiche la bonne valeur dès le départ
+
     const form = document.querySelector(".simulation-form");
 
     form.addEventListener("submit", (e) => {
@@ -48,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const economiePC = nbRecond * (prixNeuf - prixRecond);
         const economieLicence = nbRecond * prixwindows;
-        const economieTotale = (economiePC + economieLicence) * Math.floor(horizon / (5)); // cycles de 5 ans
+        const economieTotale = (economiePC + economieLicence) * Math.floor(horizon / 5); // cycles de 5 ans
 
         // Déchets évités
         const dechetsEvites = nbRecond * poidpc;
@@ -77,5 +84,8 @@ document.addEventListener("DOMContentLoaded", () => {
             <p>Équivalent arbres : <strong>${arbres} arbres</strong></p>
         `;
         form.appendChild(resultDiv);
+
+        // Réaffiche la valeur du slider après soumission
+        updateSliderLabel();
     });
 });
