@@ -13,7 +13,7 @@ header {
 }
 
 header .logo-nird {
-    height: 70px;
+    height: 60px;
     margin-right: 15px;
 }
 
@@ -36,7 +36,7 @@ header nav ul li a {
     text-decoration: none;
     color: inherit; 
 }
-style nav-item
+/* style nav-item */
 .nav-item {
     display: inline-block;
     padding: 8px 12px;
@@ -51,21 +51,25 @@ style nav-item
     background-image: linear-gradient(rgba(255,255,255,0.02), rgba(0,0,0,0.04));
 }
 
+/* Effet natif tactile / :active */
 .nav-item:active {
     transform: translateY(6px);
     box-shadow: 0 2px 0 rgba(0,0,0,0.35), inset 0 6px 12px rgba(0,0,0,0.30);
 }
 
+/* Classe appliquée par JS pour animation contrôlée */
 .nav-item.sunk {
     transform: translateY(6px);
     box-shadow: 0 2px 0 rgba(0,0,0,0.35), inset 0 6px 12px rgba(0,0,0,0.30);
 }
 
+/* Focus clavier visible */
 .nav-item:focus {
     outline: 3px solid rgba(255, 212, 64, 0.25);
     outline-offset: 3px;
 }
 
+/* Respecter prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
     .nav-item,
     .nav-item:active,
@@ -75,6 +79,7 @@ style nav-item
     box-shadow: 0 6px 0 rgba(0,0,0,0.35) !important;
     }
 }
+
 
 /* FIN HEADER -----------------------------------------------------------------------------------------------------------------------------------------------*/
 
